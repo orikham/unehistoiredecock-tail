@@ -5,8 +5,9 @@
 </template>
 
 <script>
-import HeaderComponent from "./components/HeaderComponent.vue"; // Importez votre composant Header
-import FooterComponent from "./components/FooterComponent.vue"; // Importez votre composant Footer
+import HeaderComponent from "@/components/HeaderComponent.vue"; // Importez votre composant Header
+import FooterComponent from "@/components/FooterComponent.vue"; // Importez votre composant Footer
+//import { noAlcool } from "@/services/ApiCocktail.js";
 
 export default {
   components: {
