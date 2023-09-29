@@ -6,6 +6,7 @@
       @input="search"
       placeholder="Entrer le nom ou l'ingredient de votre cocktail"
     />
+
     <button @click="searchAction">Rechercher</button>
   </div>
 </template>
@@ -13,17 +14,8 @@
 <script>
 export default {
   name: "SearchBarComponent",
-  data() {
-    return {
-      query: "",
-    };
-  },
 
-  methods: {
-    searchAction() {
-      this.$emit("search", this.query);
-    },
-  },
+  
 };
 </script>
 
@@ -35,4 +27,8 @@ input {
   width: 500px;
   height: 50px;
 }
+
+// #filtre {
+//   display: none;
+// }
 </style>

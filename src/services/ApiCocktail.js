@@ -1,7 +1,12 @@
-function searchCocktails(query) {
+function searchCocktailsByName(query) {
   return fetch(
-    "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=&search.php?i=" +
-      query
+    "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + query
+  );
+}
+
+function searchCocktailsByIngredient(query) {
+  return fetch(
+    "https://www.thecocktaildb.com/api/json/v1/1/search.php?i=" + query
   );
 }
 
@@ -17,4 +22,4 @@ function alcool() {
   );
 }
 
-export { searchCocktails, noAlcool, alcool };
+export { searchCocktailsByName, searchCocktailsByIngredient, noAlcool, alcool };

@@ -24,44 +24,64 @@
     </nav>
     <div id="toto">
       <p>Nombre de boissons sans alcool : {{ nombreBoissonsSansAlcool }}</p>
+      <p>Nombre de boissons avec alcool : {{ nombreBoissonsAvecAlcool }}</p>
+      <p>
+        Nombre de boissons :
+        {{ nombreBoissonsAvecAlcool + nombreBoissonsSansAlcool }}
+      </p>
     </div>
   </header>
 </template>
 
 <script>
 import { noAlcool } from "@/services/ApiCocktail.js";
+import { alcool } from "@/services/ApiCocktail.js";
 export default {
   name: "HeaderComponent",
 
   data() {
     return {
-      nombreBoissonsSansAlcool: 0, // Initialisation à 0
+      drinks: [],
     };
   },
 
-  mounted() {
-    noAlcool()
-      .then((response) => {
-        const data = response.data; // Accédez à l'objet de données
+  computed: {
+    nombreBoissonsSansAlcool() {
+      return this.drinks.length;
+    },
 
-        if (data && data.drinks) {
-          const nombreBoissonsSansAlcool = data.drinks.reduce(
-            (acc, drink) => acc + Number(drink.idDrink),
-            0
-          );
-          // Mettez à jour le modèle avec le nombre de recettes
-          this.nombreBoissonsSansAlcool = nombreBoissonsSansAlcool;
-
-          console.log("total boissons : ", nombreBoissonsSansAlcool);
-        }
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors de la récupération des boissons sans alcool :",
-          error
-        );
-      });
+    nombreBoissonsAvecAlcool() {
+      return this.drinks.length;
+    },
   },
+
+  async created() {
+    try {
+      const response = await noAlcool();
+      const data = await response.json();
+      const response2 = await alcool();
+      const data2 = await response2.json();
+      (this.drinks = data.drinks), data2.drinks;
+    } catch (error) {
+      console.error(
+        "Une erreur s'est produite lors de la récupération des données.",
+        error
+      );
+    }
+  },
+
+  // async aval() {
+  //   try {
+  //     const response2 = await alcool();
+  //     const data = await response2.json();
+  //     this.drinks = data.drinks;
+  //   } catch (error) {
+  //     console.error(
+  //       "Une erreur s'est produite lors de la récupération des données.",
+  //       error
+  //     );
+  //   }
+  // },
 };
 </script>
 <style scoped lang="scss">
