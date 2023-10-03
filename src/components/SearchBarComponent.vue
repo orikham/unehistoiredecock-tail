@@ -1,21 +1,26 @@
 <template>
-  <div id="search-bar">
-    <h1>quel cocktail désirez vous boire aujourd’hui ?</h1>
+  <div>
     <input
-      v-model="query"
-      @input="search"
-      placeholder="Entrer le nom ou l'ingredient de votre cocktail"
+      v-model="searchQuery"
+      type="text"
+      placeholder="Rechercher une boisson"
     />
-
-    <button @click="searchAction">Rechercher</button>
+    <button @click="search">Rechercher</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "SearchBarComponent",
-
-  
+  data() {
+    return {
+      searchQuery: "",
+    };
+  },
+  methods: {
+    search() {
+      this.$emit("search", this.searchQuery);
+    },
+  },
 };
 </script>
 

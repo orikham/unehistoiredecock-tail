@@ -69,19 +69,6 @@ export default {
       );
     }
   },
-
-  // async aval() {
-  //   try {
-  //     const response2 = await alcool();
-  //     const data = await response2.json();
-  //     this.drinks = data.drinks;
-  //   } catch (error) {
-  //     console.error(
-  //       "Une erreur s'est produite lors de la récupération des données.",
-  //       error
-  //     );
-  //   }
-  // },
 };
 </script>
 <style scoped lang="scss">
