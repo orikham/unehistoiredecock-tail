@@ -76,6 +76,7 @@ export default {
   display: flex;
   justify-content: space-evenly;
   background-color: black;
+  border-bottom: 1px solid #63e0fe;
   & > h1 {
     color: white;
     padding: 15px;
