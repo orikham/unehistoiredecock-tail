@@ -10,31 +10,27 @@ function searchCocktailsByIngredient(query) {
   );
 }
 
-function noAlcool(queryFilter) {
+function noAlcool() {
   return fetch(
-    "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic" +
-      queryFilter
+    "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic"
   );
 }
 
-function alcool(queryFilter) {
+function alcool() {
   return fetch(
-    "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic" +
-      queryFilter
+    "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic"
   );
 }
 
-function ordinary(queryFilter) {
+function ordinary() {
   return fetch(
-    "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink" +
-      queryFilter
+    "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink"
   );
 }
 
-function unordinary(queryFilter) {
+function unordinary() {
   return fetch(
-    "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail" +
-      queryFilter
+    "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail"
   );
 }
 
