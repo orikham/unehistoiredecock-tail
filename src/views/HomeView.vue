@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SearchBarComponent @search="handleSearch" />
+    <SearchBarComponent @search="handleSearch" @filter="choice" />
 
     <section id="results" v-if="cocktails.length > 0">
       <div class="slider-container">
@@ -34,6 +34,10 @@ import SearchBarComponent from "@/components/SearchBarComponent.vue";
 import {
   searchCocktailsByName,
   searchCocktailsByIngredient,
+  alcool,
+  noAlcool,
+  ordinary,
+  unordinary,
 } from "@/services/ApiCocktail.js";
 
 export default {
@@ -58,7 +62,7 @@ export default {
   methods: {
     handleSearch(query) {
       if (query.startsWith("ingredient:")) {
-        searchCocktailsByIngredient(query.substring(11)) // Remove "ingredient:" prefix
+        searchCocktailsByIngredient(query.substring(1)) // Remove "ingredient:" prefix
           .then((response) => response.json())
           .then((data) => {
             this.cocktails = data.ingredients || [];
@@ -71,6 +75,54 @@ export default {
           });
       }
     },
+
+    choice(queryFilter) {
+      // Cette méthode sera appelée lorsque l'utilisateur clique sur le bouton "Rechercher" dans la section de filtrage.
+
+      if (queryFilter && queryFilter.length > 0) {
+        alcool(queryFilter)
+          .then((response) => response.json())
+          .then((data) => {
+            this.cocktails = data.drinks || [];
+          });
+      } else if (!queryFilter) {
+        noAlcool(queryFilter)
+          .then((response) => response.json())
+          .then((data) => {
+            this.cocktails = data.drinks || [];
+          });
+      } else if (queryFilter === "lesDeux") {
+        // Si l'utilisateur a sélectionné "Les deux", vous pouvez appeler deux API différentes
+        // ou combiner les résultats de différentes manières selon vos besoins.
+        Promise.all([alcool(queryFilter), noAlcool(queryFilter)])
+          .then((responses) => Promise.all(responses.map((res) => res.json())))
+          .then((data) => {
+            // Vous pouvez maintenant traiter les données de manière appropriée.
+            // data[0] contiendra les données de "avec alcool" et data[1] les données de "sans alcool".
+            // Vous pouvez combiner ou afficher ces données comme vous le souhaitez.
+            this.cocktails = [
+              ...(data[0].drinks || []),
+              ...(data[1].drinks || []),
+            ];
+          });
+      } else {
+        // Si l'utilisateur n'a pas sélectionné d'option spécifique pour l'alcool ou les boissons, utilisez une API qui renvoie tous les cocktails (ou modifiez cela en fonction de votre logique).
+        unordinary()
+          .then((response) => response.json())
+          .then((data) => {
+            this.cocktails = data.drinks || [];
+          });
+
+        ordinary()
+          .then((response) => response.json())
+          .then((data) => {
+            this.cocktails = data.drinks || [];
+          });
+      }
+
+      // Vous pouvez ajouter d'autres conditions pour gérer d'autres critères si nécessaire.
+    },
+
     prevSlide() {
       if (this.currentSlide > 0) {
         this.currentSlide--;
@@ -117,6 +169,7 @@ export default {
 
   .prev {
     border-radius: 100px 0 0 100px;
+    box-shadow: 0px 10px 10px 10px#63e0fe;
   }
 
   .next {

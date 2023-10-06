@@ -29,6 +29,7 @@
         Nombre de boissons :
         {{ nombreBoissonsAvecAlcool + nombreBoissonsSansAlcool }}
       </p>
+      <p>Nombre de visites : {{ visitCount }}</p>
     </div>
   </header>
 </template>
@@ -42,6 +43,7 @@ export default {
   data() {
     return {
       drinks: [],
+      visitCount: 0,
     };
   },
 
@@ -62,6 +64,14 @@ export default {
       const response2 = await alcool();
       const data2 = await response2.json();
       (this.drinks = data.drinks), data2.drinks;
+      // Code pour incrémenter le compteur de visites
+      let visitCount = localStorage.getItem("visitCount");
+      if (!visitCount) {
+        visitCount = 0;
+      }
+      visitCount++;
+      localStorage.setItem("visitCount", visitCount);
+      this.visitCount = visitCount; // Mettez à jour la valeur dans le composant
     } catch (error) {
       console.error(
         "Une erreur s'est produite lors de la récupération des données.",

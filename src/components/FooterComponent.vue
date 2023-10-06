@@ -16,5 +16,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-/* Styles spécifiques au composant Footer */
+footer {
+  border-top: 1px solid #63e0fe;
+  margin-top: 15px;
+}
+p {
+  color: #63e0fe;
+}
 </style>

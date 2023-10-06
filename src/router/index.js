@@ -9,6 +9,20 @@ const routes = [
     component: HomeView,
     CocktailDetailView,
   },
+  {
+    path: "/avecalcool",
+    name: "alcoollist",
+  },
+
+  {
+    path: "/sansalcool",
+    name: "sansalcoollist",
+  },
+
+  {
+    path: "/selectionalcool",
+    name: "selectionalcoollist",
+  },
 ];
 
 const router = createRouter({
